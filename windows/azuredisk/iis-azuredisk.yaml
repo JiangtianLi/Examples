@@ -1,0 +1,18 @@
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: iis-azuredisk
+spec:
+  containers:
+  - image: microsoft/iis:windowsservercore-1709
+    name: iis-azuredisk
+    volumeMounts:
+    - name: azurediskvol
+      mountPath: '/mnt/azure'
+  nodeSelector:
+    beta.kubernetes.io/os: windows
+  volumes:
+  - name: azurediskvol
+    persistentVolumeClaim:
+      claimName: pvc-azuredisk
